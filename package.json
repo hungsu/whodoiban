@@ -1,0 +1,11 @@
+{
+  "name": "whodoiban",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests/index.js"
+  },
+  "author": "Hung-Su Nguyen",
+  "license": "UNLICENSED"
+}
