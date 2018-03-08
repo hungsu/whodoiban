@@ -64,15 +64,17 @@ function getPlayerHeroes(steamID, options) {
 }
 
 let options = {
-	limit: 150
+	limit: 300
 }
 // getPlayerHeroes(33839830, options) // Hung-Su
 // getPlayerHeroes(57484346, options) // Jason
-getPlayerHeroes(74196344, options) // Ben
-// getPlayerHeroes(85123839) // Mitch
+// getPlayerHeroes(74196344, options) // Ben
+getPlayerHeroes(85123839,options) // Mitch
+// getPlayerHeroes(38696715, options) // Odog
 
 function printHero(hero, winrate) {
 	change = hero.change * 100
+	console.log('-----')
 	console.log(
 		'Banning %s would improve your winrate by %f%, to %f%',
 		hero.heroName,
