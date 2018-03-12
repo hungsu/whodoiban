@@ -1036,7 +1036,7 @@ const heroes = [
 	}
 ]
 
-module.exports = function getHeroName(id) {
+export default function getHeroName(id) {
 	if (typeof id == 'number') {
 		let hero = heroes.find((x) => id === x.id)
 		let heroName = typeof hero != 'undefined' ? hero.localized_name : ''

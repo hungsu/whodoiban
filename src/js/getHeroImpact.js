@@ -3,7 +3,7 @@
  * @param  {} playerHeroStats
  * @returns change
  */
-module.exports = function getHeroImpact(player, playerHeroStats) {
+export default function getHeroImpact(player, playerHeroStats) {
 	// Calculate change in winrate if player never plays as hero
 	// Calculate change in winrate if player never plays with hero
 	// Calculate change in winrate if player never plays against hero
