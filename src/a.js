@@ -1,17 +1,28 @@
 import getPlayerHeroData from './js/getPlayerHeroData'
 import getHeroImpact from './js/getHeroImpact'
 import getHeroName from './js/getHeroName'
+import debounce from 'debounce'
 
 var ele = document.getElementById('player')
+
 if (ele.addEventListener) {
 	ele.addEventListener('submit', getAndPrint, false) //Modern browsers
-	ele.addEventListener('keyup', getPlayerIdFromString, false) //Modern browsers
+	ele.addEventListener('keyup', debounce(getPlayerIdFromString, 500), false) //Modern browsers
 } else if (ele.attachEvent) {
 	ele.attachEvent('onsubmit', callback) //Old IE
 }
 
 function getPlayerIdFromString(event) {
-	// console.log(event.target.value)
+	let inputEl = event.target
+	let userInput = inputEl.value
+	if (userInput.length > 2) {
+		axios
+			.get('https://api.opendota.com/api/search?q=' + userInput)
+			.then(function(response) {
+				console.log(response.data)
+				inputEl.value = response.data[0].account_id
+			})
+	}
 }
 
 function getAndPrint(event) {
@@ -30,8 +41,15 @@ function getAndPrint(event) {
 				return b.impact.all - a.impact.all
 			})
 			let winrate = player.wins / player.games * 100
-			console.log('Hello', player.personaname)
-			console.log('Your winrate for the last %i games is %f%.', options.limit, winrate.toFixed(3))
+			let template = document.getElementById('t-summary').innerHTML
+			let outputHtml = template
+				.split('${name}')
+				.join(player.personaname)
+				.split('${games}')
+				.join(options.limit)
+				.split('${winrate}')
+				.join(winrate.toFixed(3))
+			document.getElementById('summary').innerHTML = outputHtml
 			printHero(heroesWithChanges[0], player)
 			printHero(heroesWithChanges[1], player)
 			printHero(heroesWithChanges[2], player)
@@ -41,32 +59,43 @@ function getAndPrint(event) {
 	}
 }
 
+function render(){
+
+}
+
 function printHero(hero, player) {
 	let winrate = player.wins / player.games * 100
 	let change = hero.impact.all * 100
-	console.log('-----')
-	console.log(
-		'Banning %s would improve your winrate by %f%, to %f%',
-		hero.heroName,
-		change.toFixed(3),
-		(winrate + change).toFixed(3)
-	)
-	console.log('As:      %i/%i', hero.win, hero.games)
-	console.log('with:    %i/%i', hero.with_win, hero.with_games)
-	console.log('Against: %i/%i', hero.against_win, hero.against_games)
 	let greatestImpact = Math.min(
 		hero.impact.against,
 		hero.impact.with,
 		hero.impact.me
 	)
+	let reason = ''
 	if (greatestImpact == hero.impact.against) {
-		console.log('The primary reason is %s on the enemy team.', hero.heroName)
+		reason = hero.heroName + ' on the enemy team.'
 	} else if (greatestImpact == hero.impact.with) {
-		console.log(
-			'The primary reason is an ally on your team playing %s.',
-			hero.heroName
-		)
+		reason = 'an ally on your team playing ' + hero.heroName
 	} else if (greatestImpact == hero.impact.me) {
-		console.log('The primary reason is your own play with %s.', hero.heroName)
+		reason = 'your own play with ' + hero.heroName
 	}
+	let templateHtml = document.getElementById('t-suggestion').innerHTML
+	let outputHtml = templateHtml
+		.split('${heroName}')
+		.join(hero.heroName)
+		.split('${change}')
+		.join(change.toFixed(3))
+		.split('${newWinrate}')
+		.join((winrate + change).toFixed(3))
+		.split('${as}')
+		.join(hero.win + '/' + hero.games)
+		.split('${with}')
+		.join(hero.with_win + '/' + hero.with_games)
+		.split('${against}')
+		.join(hero.against_win + '/' + hero.against_games)
+		.split('${reason}')
+		.join(reason)
+	let suggestionEl = document.createElement('div')
+	suggestionEl.innerHTML = outputHtml
+	document.getElementById('suggestions').appendChild(suggestionEl)
 }

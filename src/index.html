@@ -5,13 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Who do I ban?</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.base.min.css">
 </head>
 <body>
     <form action="" id="player">
         <label for="">Enter your steam ID or player name</label>
         <input type="text">
     </form>
+    <div id="summary">
+    </div>
+    <div id="suggestions">
+    </div>
+    <template id="t-summary">
+        <p>Hello ${name}</p>
+        <p>Your winrate for the last ${games} games is ${winrate}%</p>
+    </template>
+    <template id="t-suggestion">
+        <div class="suggestion">
+            Banning ${heroName} would improve your winrate by ${change}%, to ${newWinrate}%    
+            <table>
+                <tr>
+                    <th>As:</th><th>With</th><th>Against</th>
+                </tr>
+                <tr>
+                    <td>${as}</td>
+                    <td>${with}</td>
+                    <td>${against}</td>
+                </tr>
+            </table>
+            <p>
+                 The primary reason is ${reason}
+            </p>
+        </div>
+    </template>
     <script src="./a.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 </body>
