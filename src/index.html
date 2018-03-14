@@ -5,11 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Who do I ban?</title>
+    <style>
+        table,img {margin:0 auto}
+        @media screen and (max-width:800px){
+            .suggestion {
+                text-align: center;
+                flex-direction: column
+            }
+        }
+        .df {display:flex}
+        .fx1 {flex: 1}
+    </style>
 </head>
 <body>
     <form action="" id="player">
         <label for="">Enter your steam ID or player name</label>
-        <input type="text">
+        <input type="text" placeholder="e.g. 12345678, SirActionSlacks">
     </form>
     <div id="summary">
     </div>
@@ -20,21 +31,30 @@
         <p>Your winrate for the last ${games} games is ${winrate}%</p>
     </template>
     <template id="t-suggestion">
-        <div class="suggestion">
-            Banning ${heroName} would improve your winrate by ${change}%, to ${newWinrate}%    
-            <table>
-                <tr>
-                    <th>As:</th><th>With</th><th>Against</th>
-                </tr>
-                <tr>
-                    <td>${as}</td>
-                    <td>${with}</td>
-                    <td>${against}</td>
-                </tr>
-            </table>
-            <p>
-                 The primary reason is ${reason}
-            </p>
+        <div class="suggestion df">
+            <img src="http://cdn.dota2.com/apps/dota2/images/heroes/${heroFileName}_full.png" alt="" width="256" height="144">
+            <div class="fx1">
+                Banning ${heroName} would improve your winrate by ${change}%, to ${newWinrate}%    
+                <table>
+                    <tr>
+                        <th>As:</th>
+                        <td>
+                            ${as}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>With</th>
+                        <td>${with}</td>
+                    </tr>
+                    <tr>
+                        <th>Against</th>
+                        <td>${against}</td>
+                    </tr>
+                </table>
+                <p>
+                    The primary reason is ${reason}
+                </p>
+            </div>
         </div>
     </template>
     <script src="./a.js"></script>

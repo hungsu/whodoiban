@@ -15,7 +15,8 @@ if (ele.addEventListener) {
 function getPlayerIdFromString(event) {
 	let inputEl = event.target
 	let userInput = inputEl.value
-	if (userInput.length > 2) {
+	let valid = (userInput.length > 2) && (parseInt(userInput) !== NaN)
+	if (valid) {
 		axios
 			.get('https://api.opendota.com/api/search?q=' + userInput)
 			.then(function(response) {
@@ -50,6 +51,7 @@ function getAndPrint(event) {
 				.split('${winrate}')
 				.join(winrate.toFixed(3))
 			document.getElementById('summary').innerHTML = outputHtml
+			document.getElementById('suggestions').innerHTML = ''
 			printHero(heroesWithChanges[0], player)
 			printHero(heroesWithChanges[1], player)
 			printHero(heroesWithChanges[2], player)
@@ -81,6 +83,8 @@ function printHero(hero, player) {
 	}
 	let templateHtml = document.getElementById('t-suggestion').innerHTML
 	let outputHtml = templateHtml
+		.split('${heroFileName}')
+		.join(hero.heroName.split(' ').join('_').toLowerCase())
 		.split('${heroName}')
 		.join(hero.heroName)
 		.split('${change}')
