@@ -1,5 +1,3 @@
-// const getHeroImpact = require('./getHeroImpact')
-
 // Given a steam ID, get list of player's winrate against all DotA heroes
 export default function getPlayerHeroData(steamID, options) {
 	let promises = [
