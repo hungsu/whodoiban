@@ -1,1 +1,1 @@
-web: parcel src/index.html -p 80
+web: parcel src/index.html
