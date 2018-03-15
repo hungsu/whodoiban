@@ -6,7 +6,8 @@
   "scripts": {
     "build": "parcel build src/index.html",
     "dev": "parcel src/index.html",
-    "test": "node tests/index.js"
+    "test": "node tests/index.js",
+    "start": "parcel src/index.html -p 80"
   },
   "author": "Hung-Su Nguyen",
   "license": "UNLICENSED",
