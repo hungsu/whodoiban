@@ -7,15 +7,13 @@
     "build": "parcel build src/index.html --public-url ./",
     "dev": "parcel src/index.html",
     "test": "node tests/index.js",
-    "start": "parcel src/index.html -p 80"
+    "start": "parcel src/index.html -p $PORT"
   },
   "author": "Hung-Su Nguyen",
   "license": "UNLICENSED",
   "dependencies": {
     "axios": "^0.18.0",
     "debounce": "^1.1.0",
-    "ejs": "^2.5.7",
-    "express": "^4.16.3",
     "parcel-bundler": "^1.6.2"
   }
 }
