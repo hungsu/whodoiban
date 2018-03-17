@@ -21,12 +21,14 @@
     <form action="" id="player">
         <label for="">Enter your steam ID or player name</label>
         <input type="text" placeholder="e.g. 12345678, SirActionSlacks">
+        <div id="players"></div>
     </form>
     <div id="summary">
     </div>
     <div id="suggestions">
     </div>
     <template id="t-summary">
+        ${img}
         <p>Hello ${name}</p>
         <p>Your winrate for the last ${games} games is ${winrate}%</p>
     </template>
@@ -56,6 +58,12 @@
                 </p>
             </div>
         </div>
+    </template>
+    <template id="t-player">
+        <button type="button" data-account-id="${account_id}">
+            ${img}
+            ${personaname}
+        </button>
     </template>
     <script src="./a.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
