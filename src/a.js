@@ -135,6 +135,12 @@ function printHero(hero, player) {
 		.replace(' ', '_')
 		.replace("'", '')
 		.toLowerCase()
+	if (hero.hero_id == '20') {
+		heroFileName = 'vengefulspirit'
+	}
+	if (hero.hero_id == '53') {
+		heroFileName = 'furion'
+	}
 	let templateHtml = document.getElementById('t-suggestion').innerHTML
 	let outputHtml = templateHtml
 		.split('${heroFileName}')
