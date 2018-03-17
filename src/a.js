@@ -9,20 +9,17 @@ var ele = document.getElementById('player')
 if (ele.addEventListener) {
 	ele.addEventListener('submit', getPlayerSuggestions, false) //Modern browsers
 	ele.addEventListener('keyup', debounce(getPlayerSuggestions, 500), false) //Modern browsers
-	// document.getElementById('players').addEventListener('click', useSuggestion)
 
 	document
 		.getElementById('players')
 		.addEventListener('click', function(event) {
 			let buttonEl = event.path.reduce(function(accumulator, current){
-				console.log(accumulator.tagName, current.tagName)
 				if (current.tagName && current.tagName.toLowerCase() == 'button') {
 					return current
 				} else {
 					return accumulator
 				}
 			})
-			console.log(buttonEl)
 			if (buttonEl != undefined) {
 				let account_id = buttonEl.getAttribute('data-account-id')
 				if (account_id.length > 0) {
@@ -39,8 +36,6 @@ if (ele.addEventListener) {
 
 function useSuggestion(event){
 	event.preventDefault()
-	console.log(event)
-	console.log(this)
 	let account_id = event.currentTarget.getAttribute('data-account-id')
 	if (account_id.length > 0) {
 		document.getElementById('players').innerHTML = ''
@@ -103,6 +98,7 @@ function getAndPrint(account_id) {
 			let winrate = (player.wins / player.games * 100).toFixed(3)
 			let summaryTemplate = buildTemplate('t-summary')
 			let outputHtml = summaryTemplate({
+				account_id: playerId,
 				img: '<img src="' + player.avatarfull + '">',
 				name: player.personaname,
 				games: options.limit,
