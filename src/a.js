@@ -11,6 +11,12 @@ if (ele.addEventListener) {
 	ele.addEventListener('keyup', debounce(getPlayerSuggestions, 500), false) //Modern browsers
 
 	document
+		.getElementById('ranked')
+		.addEventListener('change', function(event) {
+			console.log(this.checked)
+		})
+
+	document
 		.getElementById('players')
 		.addEventListener('click', function(event) {
 			let buttonEl = event.path.reduce(function(accumulator, current){
@@ -75,7 +81,14 @@ function getPlayerSuggestions(event) {
 function getAndPrint(account_id) {
 	let playerId = parseInt(account_id, 10)
 	if (playerId > 0) {
-		let options = { limit: 100 }
+		let options = { 
+			limit: 100
+		}
+		if (document.getElementById('ranked').checked) {
+			options['lobby_type'] = 7
+		} else {
+			options['lobby_type'] = 0
+		}
 		document.getElementById('summary').innerHTML = 'Loading'
 		document.getElementById('suggestions').innerHTML = ''
 		getPlayerHeroData(playerId, options).then(function(values) {
@@ -124,7 +137,9 @@ function printHero(hero, player) {
 		hero.impact.me
 	)
 	let reason = ''
-	if (greatestImpact == hero.impact.against) {
+	if ((greatestImpact == hero.impact.against) && (greatestImpact == hero.impact.with)) {
+		reason = 'equally the enemy team and your own team playing '+ hero.heroName
+	} else if (greatestImpact == hero.impact.against) {
 		reason = hero.heroName + ' on the enemy team.'
 	} else if (greatestImpact == hero.impact.with) {
 		reason = 'an ally on your team playing ' + hero.heroName
@@ -134,12 +149,24 @@ function printHero(hero, player) {
 	let heroFileName = hero.heroName
 		.replace(' ', '_')
 		.replace("'", '')
+		.replace("-", '')
 		.toLowerCase()
-	if (hero.hero_id == '20') {
-		heroFileName = 'vengefulspirit'
-	}
-	if (hero.hero_id == '53') {
-		heroFileName = 'furion'
+	switch (hero.hero_id) {
+		case '11':
+			heroFileName = 'nevermore'
+			break
+
+		case '20':
+			heroFileName = 'vengefulspirit'
+			break
+		case '21':
+			heroFileName = 'windrunner'
+			break
+		case '53':
+			heroFileName = 'furion'
+			break
+		default:
+			break
 	}
 	let templateHtml = document.getElementById('t-suggestion').innerHTML
 	let outputHtml = templateHtml
