@@ -165,6 +165,9 @@ function printHero(hero, player) {
 		case '21':
 			heroFileName = 'windrunner'
 			break
+		case '42':
+			heroFileName = 'skeleton_king'
+			break
 		case '53':
 			heroFileName = 'furion'
 			break
