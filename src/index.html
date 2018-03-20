@@ -1,22 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Who do I ban?</title>
     <style>
-        table,img {margin:0 auto}
-        @media screen and (max-width:800px){
-            .suggestion {
-                text-align: center;
-                flex-direction: column
+        body {
+            background: black;
+            color: white;
+            font-family: sans-serif
+        }
+
+        table,
+        img {
+            margin: 0 auto
+        }
+
+        #suggestions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 1rem;
+        }
+
+        @media screen and (min-width:512px){
+            #suggestions {
+                grid-template-columns: 1fr 1fr 1fr;
             }
         }
-        .df {display:flex}
-        .fx1 {flex: 1}
+
+        .suggestion {
+            background: #444;
+            text-align: center;
+            flex-direction: column;
+            display: flex
+        }
+
+        .fx1 {
+            flex: 1
+        }
     </style>
 </head>
+
 <body>
     <form action="" id="player">
         <label for="">Enter your steam ID or player name</label>
@@ -31,14 +57,16 @@
     </div>
     <template id="t-summary">
         ${img}
-        <p>Hello <a target="_blank" href="https://www.opendota.com/players/${account_id}">${name}</a></p>
+        <p>Hello
+            <a target="_blank" href="https://www.opendota.com/players/${account_id}">${name}</a>
+        </p>
         <p>Your winrate for the last ${games} games is ${winrate}%</p>
     </template>
     <template id="t-suggestion">
-        <div class="suggestion df">
+        <div class="suggestion">
             <img src="http://cdn.dota2.com/apps/dota2/images/heroes/${heroFileName}_full.png" alt="" width="256" height="144">
             <div class="fx1">
-                Banning ${heroName} would improve your winrate by ${change}%, to ${newWinrate}%    
+                Banning ${heroName} would improve your winrate by ${change}%, to ${newWinrate}%
                 <table>
                     <tr>
                         <th>As:</th>
@@ -63,11 +91,11 @@
     </template>
     <template id="t-player">
         <button type="button" data-account-id="${account_id}">
-            ${img}
-            ${personaname}
+            ${img} ${personaname}
         </button>
     </template>
     <script src="./a.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 </body>
+
 </html>

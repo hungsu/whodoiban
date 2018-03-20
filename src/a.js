@@ -123,7 +123,8 @@ function getAndPrint(account_id) {
 				printHero(heroesWithChanges[1], player),
 				printHero(heroesWithChanges[2], player),
 				printHero(heroesWithChanges[3], player),
-				printHero(heroesWithChanges[4], player)
+				printHero(heroesWithChanges[4], player),
+				printHero(heroesWithChanges[5], player)
 			].join('')
 			document.getElementById('suggestions').innerHTML = suggestions
 		})
