@@ -37,19 +37,40 @@
             }
         }
 
+        .suggestion h1 {
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            margin:0;
+        }
+
+        .suggestion strong {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            line-height: 1.7rem;
+        }
+
+        .suggestion table {
+            text-align:center;
+            width: 100%;
+        }
+        .suggestion td
+        {width: 33.3%;}
         .suggestion img {
             width: 100%;
             height: auto
         }
 
+
         .suggestion {
             background: #444;
-            text-align: center;
             flex-direction: column;
             display: flex;
         }
 
         .fx1 {
+            padding: 1rem;
+            position: relative;
             flex: 1
         }
     </style>
@@ -75,31 +96,31 @@
         <p>Your winrate for the last ${games} games is ${winrate}%</p>
     </template>
     <template id="t-suggestion">
-        <div class="suggestion">
+        <article class="suggestion">
             <img src="http://cdn.dota2.com/apps/dota2/images/heroes/${heroFileName}_full.png" alt="" width="256" height="144">
             <div class="fx1">
-                Banning ${heroName} would improve your winrate by ${change}%, to ${newWinrate}%
-                <table>
-                    <tr>
-                        <th>As:</th>
-                        <td>
-                            ${as}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>With</th>
-                        <td>${with}</td>
-                    </tr>
-                    <tr>
-                        <th>Against</th>
-                        <td>${against}</td>
-                    </tr>
-                </table>
+                <h1>${heroName}</h1><strong>-${change}%</strong>
+                <p>Banning ${heroName} would improve your winrate by ${change}%, to ${newWinrate}%</p>
                 <p>
                     The primary reason is ${reason}
                 </p>
+                <table>
+                    <tr>
+                        <th>As:</th>
+                        <th>With</th>
+                        <th>
+                            Against</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            ${as}
+                        </td>
+                        <td>${with}</td>
+                        <td>${against}</td>
+                    </tr>
+                </table>
             </div>
-        </div>
+        </article>
     </template>
     <template id="t-player">
         <button type="button" data-account-id="${account_id}">
