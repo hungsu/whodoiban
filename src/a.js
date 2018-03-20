@@ -118,12 +118,14 @@ function getAndPrint(account_id) {
 				winrate: winrate
 			})
 			document.getElementById('summary').innerHTML = outputHtml
-			document.getElementById('suggestions').innerHTML = ''
-			printHero(heroesWithChanges[0], player)
-			printHero(heroesWithChanges[1], player)
-			printHero(heroesWithChanges[2], player)
-			printHero(heroesWithChanges[3], player)
-			printHero(heroesWithChanges[4], player)
+			let suggestions = [
+				printHero(heroesWithChanges[0], player),
+				printHero(heroesWithChanges[1], player),
+				printHero(heroesWithChanges[2], player),
+				printHero(heroesWithChanges[3], player),
+				printHero(heroesWithChanges[4], player)
+			].join('')
+			document.getElementById('suggestions').innerHTML = suggestions
 		})
 	}
 }
@@ -168,25 +170,17 @@ function printHero(hero, player) {
 		default:
 			break
 	}
-	let templateHtml = document.getElementById('t-suggestion').innerHTML
-	let outputHtml = templateHtml
-		.split('${heroFileName}')
-		.join(heroFileName)
-		.split('${heroName}')
-		.join(hero.heroName)
-		.split('${change}')
-		.join(change.toFixed(3))
-		.split('${newWinrate}')
-		.join((winrate + change).toFixed(3))
-		.split('${as}')
-		.join(hero.win + '/' + hero.games)
-		.split('${with}')
-		.join(hero.with_win + '/' + hero.with_games)
-		.split('${against}')
-		.join(hero.against_win + '/' + hero.against_games)
-		.split('${reason}')
-		.join(reason)
-	let suggestionEl = document.createElement('div')
-	suggestionEl.innerHTML = outputHtml
-	document.getElementById('suggestions').appendChild(suggestionEl)
+	
+	let suggestionTemplate = buildTemplate('t-suggestion')
+	let outputHtml = suggestionTemplate({
+		heroFileName: heroFileName,
+		heroName: hero.heroName,
+		change: change.toFixed(3),
+		newWinrate: (winrate + change).toFixed(3),
+		as: hero.win + '/' + hero.games,
+		with: hero.with_win + '/' + hero.with_games,
+		against: hero.against_win + '/' + hero.against_games,
+		reason: reason
+	})
+	return outputHtml
 }
