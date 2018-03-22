@@ -9,9 +9,11 @@
     <title>Who do I ban?</title>
     <style>
         body {
-            background: black;
+            background: HSL(220,5%,12%);
             color: white;
-            font-family: sans-serif
+            font-family: sans-serif;
+            margin: 1rem;
+            --dota-death-red: #e54b15;
         }
 
         table,
@@ -25,13 +27,13 @@
             grid-gap: 1rem;
         }
 
-        @media screen and (min-width:512px){
+        @media screen and (min-width:512px) {
             #suggestions {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
-        @media screen and (min-width:768px){
+        @media screen and (min-width:768px) {
             #suggestions {
                 grid-template-columns: 1fr 1fr 1fr;
             }
@@ -39,23 +41,29 @@
 
         .suggestion h1 {
             font-size: 1.4rem;
+            margin: 0;
             text-transform: uppercase;
-            margin:0;
+            text-shadow: 1px 1px 2px black;
         }
 
         .suggestion strong {
+            color: var(--dota-death-red);
+            line-height: 1.7rem;
             position: absolute;
             right: 1rem;
             top: 1rem;
-            line-height: 1.7rem;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
         }
 
         .suggestion table {
-            text-align:center;
+            text-align: center;
             width: 100%;
         }
-        .suggestion td
-        {width: 33.3%;}
+
+        .suggestion td {
+            width: 33.3%;
+        }
+
         .suggestion img {
             width: 100%;
             height: auto
@@ -63,7 +71,7 @@
 
 
         .suggestion {
-            background: #444;
+            background: HSL(207,7%,25%);
             flex-direction: column;
             display: flex;
         }
@@ -99,14 +107,15 @@
         <article class="suggestion">
             <img src="http://cdn.dota2.com/apps/dota2/images/heroes/${heroFileName}_full.png" alt="" width="256" height="144">
             <div class="fx1">
-                <h1>${heroName}</h1><strong>-${change}%</strong>
+                <h1>${heroName}</h1>
+                <strong>-${change}%</strong>
                 <p>Banning ${heroName} would improve your winrate by ${change}%, to ${newWinrate}%</p>
                 <p>
                     The primary reason is ${reason}
                 </p>
                 <table>
                     <tr>
-                        <th>As:</th>
+                        <th>As</th>
                         <th>With</th>
                         <th>
                             Against</th>
