@@ -1036,7 +1036,7 @@ const heroes = [
 	}
 ]
 
-export default function getHeroName(id) {
+function getHeroName(id) {
 	if (typeof id == 'number') {
 		let hero = heroes.find((x) => id === x.id)
 		let heroName = typeof hero != 'undefined' ? hero.localized_name : ''
@@ -1046,3 +1046,12 @@ export default function getHeroName(id) {
 		return ''
 	}
 }
+
+function getImageUrl(id) {
+	if (typeof id == 'number') {
+		let hero = heroes.find((x) => id === x.id)
+		return hero.name.replace('npc_dota_hero_','')
+	}
+}
+
+export {getHeroName, getImageUrl}
