@@ -27,15 +27,22 @@
             grid-gap: 1rem;
         }
 
-        @media screen and (min-width:512px) {
+        /* // TODO Tweak breakpoint so that Vengeful Spirit and percentage fit */
+        @media screen and (min-width:653px) {
             #suggestions {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
-        @media screen and (min-width:768px) {
+        @media screen and (min-width:968px) {
             #suggestions {
                 grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        @media screen and (min-width:1548px) {
+            #suggestions {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
             }
         }
 
@@ -48,7 +55,7 @@
 
         .suggestion strong {
             color: var(--dota-death-red);
-            line-height: 1.7rem;
+            line-height: 1.6rem;
             position: absolute;
             right: 1rem;
             top: 1rem;
