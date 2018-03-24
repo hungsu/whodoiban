@@ -1,4 +1,4 @@
-const getHeroName = require('../js/getHeroName')
+import getHeroName from '../src/js/getHeroName.mjs'
 
 // tests
 console.assert(getHeroName(1) == 'Anti-Mage', 'Hero ID 1 should be "Anti-Mage"')
