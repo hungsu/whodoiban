@@ -11,7 +11,7 @@ if (ele.addEventListener) {
 	ele.addEventListener('keyup', debounce(getPlayerSuggestions, 500), false) //Modern browsers
 
 	document.getElementById('ranked').addEventListener('change', function(event) {
-		console.log(this.checked)
+		console.log(this)
 	})
 
 	document.getElementById('players').addEventListener('click', function(event) {
@@ -49,12 +49,13 @@ function getPlayerSuggestions(event) {
 	let userInput = inputEl.value
 	let valid = userInput.length > 2 && parseInt(userInput) !== NaN
 	if (valid) {
-		document.getElementById('players').innerHTML = 'Loading'
+		let playersEl = document.getElementById('players')
+		playersEl.innerHTML = ''
+		playersEl.className = 'loading'
 		axios
 			.get('https://api.opendota.com/api/search?q=' + userInput)
 			.then(function(response) {
-				let playersEl = document.getElementById('players')
-				playersEl.innerHTML = ''
+				playersEl.className = ''
 				let topResults = response.data.slice(0, 9)
 				topResults.forEach(element => {
 					let buildPlayerHTML = buildTemplate('t-player')
@@ -95,17 +96,15 @@ function getAndPrint(account_id) {
 	let playerId = parseInt(account_id, 10)
 	if (playerId > 0) {
 		let options = { limit: 100 }
-		if (document.getElementById('ranked').checked) {
-			options['lobby_type'] = 7
-		} else {
-			options['lobby_type'] = 0
-		}
-		document.getElementById('summary').innerHTML = 'Loading'
+		options['lobby_type'] = document.getElementById('ranked').value
+		document.getElementById('summary').className = 'loading'
+		document.getElementById('summary').innerHTML = ''
 		document.getElementById('suggestions').innerHTML = ''
 
 		getPlayerHeroData(playerId, options).then(function(values) {
 			let player = values[2].data.profile
 			let rank_tier = values[2].data.rank_tier
+			console.log('rank_tier:',rank_tier)
 			if (rank_tier != '') {
 				let image = imageForRank(rank_tier)
 				console.log(image)
@@ -138,6 +137,8 @@ function getAndPrint(account_id) {
 				games: options.limit,
 				winrate: winrate
 			})
+			
+			document.getElementById('summary').className = ''
 			document.getElementById('summary').innerHTML = outputHtml
 			let suggestions = [
 				printHero(heroesWithChanges[0], player),

@@ -9,16 +9,73 @@
     <title>Who do I ban?</title>
     <style>
         body {
-            background: HSL(220,5%,12%);
+            background: var(--dota-gray-dark);
             color: white;
             font-family: sans-serif;
             margin: 1rem;
             --dota-death-red: #e54b15;
+            --dota-gray-dark:  HSL(220,5%,12%);
+            --dota-gray-25:  HSL(220,5%,25%);
+            --z-dropdown: 1
         }
 
         table,
         img {
             margin: 0 auto
+        }
+
+        .field {
+            background: white;
+            position: relative;
+        }
+        .field label {
+            color: black;
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            font-weight: bold;
+        }
+        .field input {
+            padding: 1rem;
+            padding-left: 8rem;
+            border: 0; background: transparent;
+            width: 100%;
+        }
+        input[type=text] {
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        #players {
+            background: var(--dota-gray-dark);
+            box-shadow: 2px 2px 4px black;
+            position: absolute;
+            top: 3rem;
+            width: 100%;
+            z-index: var(--z-dropdown)
+        }
+        #players.loading::after {
+            content: 'Loading';
+            display: block;
+            padding: 1rem;
+        }
+        #players button {
+            background: transparent;
+            color: white;
+            padding: 0.7rem;
+            box-sizing: border-box;
+            border: 0;
+            text-align: left;
+            width: 100%;
+        }
+        
+        #players button:hover {
+            background: var(--dota-gray-25);
+        }
+        #players img {
+            width: 46px;
+            height: auto;
+            vertical-align: middle;
         }
 
         #suggestions {
@@ -94,11 +151,17 @@
 
 <body>
     <form action="" id="player">
-        <label for="">Enter your steam ID or player name</label>
-        <input type="text" placeholder="e.g. 12345678, SirActionSlacks">
-        <input type="checkbox" name="" id="ranked">
-        <label for="ranked">Ranked only?</label>
-        <div id="players"></div>
+        <div class="field">
+            <label for="player-name">Player name</label>
+            <input id="player-name" type="text" placeholder="e.g. 12345678, SirActionSlacks">
+            <div id="players"></div>
+        </div>
+        <label for="ranked">Game type</label>
+        <select name="ranked" id="ranked">
+            <option value="0">Unranked only</option>
+            <option value="7">Ranked only</option>
+            <option value="">Ranked and Unranked</option>
+        </select>
     </form>
     <div id="summary">
     </div>
