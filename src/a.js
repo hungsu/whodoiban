@@ -56,7 +56,7 @@ function getPlayerSuggestions(event) {
 			.get('https://api.opendota.com/api/search?q=' + userInput)
 			.then(function(response) {
 				playersEl.className = ''
-				let topResults = response.data.slice(0, 9)
+				let topResults = response.data.slice(0, 20)
 				topResults.forEach(element => {
 					let buildPlayerHTML = buildTemplate('t-player')
 					let playerHTML = buildPlayerHTML({
