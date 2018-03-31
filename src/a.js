@@ -15,13 +15,8 @@ if (ele.addEventListener) {
 	})
 
 	document.getElementById('players').addEventListener('click', function(event) {
-		let buttonEl = event.path.reduce(function(accumulator, current) {
-			if (current.tagName && current.tagName.toLowerCase() == 'button') {
-				return current
-			} else {
-				return accumulator
-			}
-		})
+		console.log(event)
+		let buttonEl = event.target
 		if (buttonEl != undefined) {
 			let account_id = buttonEl.getAttribute('data-account-id')
 			if (account_id.length > 0) {
