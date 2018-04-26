@@ -2,11 +2,11 @@ import getPlayerHeroData from './getPlayerHeroData'
 import { getHeroName, getImageUrl } from './getHeroName'
 import getHeroImpact from './getHeroImpact'
 import buildTemplate from './buildTemplate'
+import store from './store'
 
-window.getAndPrint = function(account_id) {
-	let playerId = parseInt(account_id, 10)
+window.getAndPrint = function(playerId) {
 	if (playerId > 0) {
-		let options = { limit: 100 }
+		let options = { limit: document.getElementById('gamelimit').value }
 		options['lobby_type'] = document.getElementById('ranked').value
 		document.getElementById('summary').className = 'loading'
 		document.getElementById('summary').innerHTML = ''
