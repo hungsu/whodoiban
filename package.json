@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "build": "parcel build src/index.html --public-url ./",
-    "dev": "parcel src/index.html",
+    "dev": "parcel src/index.html --https",
     "test": "node --experimental-modules tests/index.mjs",
     "start": "parcel src/index.html -p $PORT"
   },
